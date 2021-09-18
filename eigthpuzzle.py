@@ -132,7 +132,7 @@ if __name__ == '__main__':
     # puzzle.result('left')
     puzzleProb = EightPuzzleSearchProblem(puzzle)
     # moves = puzzleProb.getSuccessors(puzzleProb.getStartState())
-    paths = search.breadthFirstSearch(puzzleProb)
+    paths = search.depthFirstSearch(puzzleProb)
     # paths, cost = search.depthFirstSearch(puzzleProb)
     # paths = search.uniformCostSearch(puzzleProb)
 

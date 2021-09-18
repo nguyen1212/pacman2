@@ -182,7 +182,7 @@ class GraphSearch:
             del self.frontier[hNode]
         return popNode
 
-    def search(self, heuristic = lambda x,y: -1): 
+    def search(self, heuristic = lambda x,y: 0): 
         initState = self.problem.getStartState()
         initNode = Node(initState)
         if self.problem.isGoalState(initState):
@@ -192,6 +192,7 @@ class GraphSearch:
             if self.fringe.isEmpty():
                 return []
             curr = self.popFringe()
+            # print("\n", curr.state.cur['name'])
             self.explored.add(curr)
             if self.problem.isGoalState(curr.state):
                 SearchProblem.trackNode = curr
@@ -210,6 +211,7 @@ class Node:
     def __init__(self, state, parent = None, action = "", stepcost = 0):
         self.parent = parent
         if parent is not None:
+            # print(state.cur['name'])
             self.pathcost = parent.pathcost + stepcost
         else:
             self.pathcost = stepcost
