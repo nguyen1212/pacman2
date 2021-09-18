@@ -89,7 +89,7 @@ class EightPuzzleState:
     def __str__(self):
         return self.__getAsciiString()
 
-class EightPuzzleSearchProblem():
+class EightPuzzleSearchProblem(search.SearchProblem):
     def __init__(self, puzzle):
         self.puzzle = puzzle
 
@@ -99,13 +99,13 @@ class EightPuzzleSearchProblem():
     def isGoalState(self, state):
         return state.isGoal()
 
-    def getSuccessors(self, state):
+    def expand(self, state):
         succ = []
         for a in state.legalMoves():
             succ.append((state.result(a), a, 1))
         return succ
 
-    def getCostOfActions(self, actions):
+    def getActionCost(self, actions):
         return len(actions)
 
 EIGHT_PUZZLE_DATA = [[1, 0, 2, 3, 4, 5, 6, 7, 8],
@@ -132,11 +132,11 @@ if __name__ == '__main__':
     # puzzle.result('left')
     puzzleProb = EightPuzzleSearchProblem(puzzle)
     # moves = puzzleProb.getSuccessors(puzzleProb.getStartState())
-    # paths, cost = search.breadthFirstSearch(puzzleProb)
-    paths, cost = search.depthFirstSearch(puzzleProb)
-    # paths, cost = search.uniformCostSearch(puzzleProb)
+    paths = search.breadthFirstSearch(puzzleProb)
+    # paths, cost = search.depthFirstSearch(puzzleProb)
+    # paths = search.uniformCostSearch(puzzleProb)
 
-    print("{} moves".format(puzzleProb.getCostOfActions(paths)))
+    print("{} moves".format(puzzleProb.getPathCost()))
     curr = puzzle
     print(paths)
     for path in paths:
