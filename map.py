@@ -116,7 +116,7 @@ class MapState:
 
 # TODO: Implement The methods in this class
 
-class MapSearchProblem():
+class MapSearchProblem(search.SearchProblem):
     """
       Implementation of a SearchProblem for the  Eight Puzzle domain
 
@@ -132,7 +132,7 @@ class MapSearchProblem():
     def isGoalState(self, state):
         return state.isGoal()
 
-    def getSuccessors(self,state):
+    def expand(self,state):
         """
           Returns list of (successor, action, stepCost) pairs where
           each succesor is either left, right, up, or down
@@ -144,7 +144,7 @@ class MapSearchProblem():
             succ.append((state.result(a), a, cost))
         return succ
 
-    def getCostOfActions(self, actions):
+    def getActionCost(self, actions):
         """
          actions: A list of actions to take
 
@@ -157,9 +157,9 @@ if __name__ == '__main__':
     rMap = MapState(CITIES, 'Zerind', 'Bucharest')
     problem = MapSearchProblem(rMap)    
     # path = search.GraphSearch(problem).findSolution(4, 4)
-    path = search.uniformCostSearch(problem)
+    path = search.aStarSearch(problem)
     print(rMap)
     if not path:
         print("Cannot find any path!")
     else:
-        print('BFS found a path of %d moves: %s' % (len(path), str(path)))
+        print('Algorithm found a path \n%d moves: %s\ncost: %d' % (len(path), str(path), problem.getPathCost()))
